@@ -1,0 +1,15 @@
+{% extends "/marketing/base.html.twig" %}
+{% import "/marketing/banner/banner-form.html.twig" as bannerForm %}
+
+{% block marketing_content %}
+    <div class="one-col-form">
+        <form action="" method="POST" enctype="multipart/form-data">
+            <h2>Modifier la bannière {{ banner.login }}</h2>
+            <div class="display-banner">
+                <img src="/banner/{{banner.id}}.{{banner.extension}}" alt="" width="90%">
+            </div>    
+            {{ bannerForm.form(values, banner, errorList) }}
+        </form>
+    </div>
+
+{% endblock marketing_content %}

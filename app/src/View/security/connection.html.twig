@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="connect">
+        <form class="connect-form" method="post">
+            <h1 class="">Se Connecter</h1>
+            {% if error %}
+                <div class="login-error">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <div class="input-container log-in">
+                <label for="login">Login</label>
+                <input type="text" id="login" name="login">
+            </div>
+            <div class="input-container log-in">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <div class="btn-container">
+                <div class="connect-btn">
+                    <button type="submit">Connexion</button>
+                </div>
+                <div class="register-btn">
+                    <a href="/register">Créer un compte</a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

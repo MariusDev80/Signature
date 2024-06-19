@@ -1,0 +1,14 @@
+{% extends "/admin/base.html.twig" %}
+
+{% block admin_content %}
+    <div class="delete">
+        <h2>Êtes-vous sur de vouloir supprimer l'utilisateur {{user.login}} ?</h2>
+        <form method="post">
+            <div>
+                <button type="submit" class="yes-btn" value="confirm" name="btn">Oui</button>
+                <button type="submit" class="no-btn" value="cancel" name="btn">Non</button>
+            </div>
+            <input type="hidden" name="userId" value="{{user.id}}">
+        </form>
+    </div>
+{% endblock admin_content %}

@@ -1,0 +1,34 @@
+{% macro form(values, banner, errorList) %}  
+    <div class="col1">
+        <div class="input-container">
+
+            {% set name = values.name ?? banner.name %}
+            {% set nameHasError = errorList.name ?? false %}
+            
+            <label for="name">Nom</label>
+            <input type="text" class="{{ nameHasError ? 'error' : ''}}" value="{{ name }}" id="name" name="name" maxlength="255" required>
+            
+            {% if nameHasError %}
+                <p>{{nameHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="input-container">
+
+            {% set bannerHasError = errorList.banner ?? false %}
+
+            <label for="banner">Fichier Original</label>
+            <input type="file" class="{{ bannerHasError ? 'error' : ''}}" id="banner" name="banner" maxlength="255" required>
+            
+            {% if bannerHasError %}
+                <p>{{bannerHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div  class="btn-container">
+            <input type="hidden" value="{{banner.id}}" name="bannerId">
+            <div class="cancel-btn"><a href="/marketing">Annuler</a></div>
+            <button type="submit" class="confirm-btn" name="btn" value="confirm">Valider</button>
+        </div>
+    </div>
+{% endmacro %}

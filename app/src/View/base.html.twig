@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style/header.css">
+    <link rel="stylesheet" type="text/css" href="/style/connect.css"> 
+    <link rel="stylesheet" type="text/css" href="/style/main.css"> 
+    <link rel="icon" href="img/favicon-16x16.png" type="image/x-icon">
+    <title>Signature</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="/" class="logo"><img src="/img/logo.png" width="90px" height="97.15px"></a>
+        </div>    
+        <div class="title">
+            <h1><b>Signature Mail</b></h1>
+        </div>
+        {% if currentUser %}
+            <div class="profile-btn">
+                <a href="/profile">Mon Profil</a>
+            </div>
+            <div class="logout">
+                <a href="/logout">Se déconnecter</a>
+            </div>  
+        {% endif %}
+    </header>
+
+    <div class="content">
+    {% if messages|length %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="{{ message.level}}">
+                    <p>{{ message.message|raw }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class<div class="nav">
+    
+        {% if currentUser.isAdmin %}
+            <div class="col1 centered">
+                <a href="/admin/user">Gestion Utilisateurs</a>
+            </div>
+            <div class="col2 centered">
+                <a href="/admin/entite">Gestion Entités</a>
+            </div>
+            <div class="col3 centered">
+                <a href="/marketing">Gestion Bannières</a>
+            </div>
+        {% elseif currentUser.isMarketing %}
+            <div class="col2 centered">
+                <a href="/marketing">Gestion Bannière</a>
+            </div>
+        {% endif %}
+        
+    </div>
+
+    {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

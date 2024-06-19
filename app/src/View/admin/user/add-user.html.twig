@@ -1,0 +1,12 @@
+{% extends "/admin/base.html.twig" %}
+{% import "/admin/user/user-form.html.twig" as userForm %}
+
+{% block admin_content %}
+    <div class="two-col-form">
+        <form action="" method="POST">
+            <h2>Ajouter un utilisateur</h2>
+            {{ userForm.form(entiteList, values, null, errorList, false) }}
+        </form>
+    </div>
+
+{% endblock admin_content %}

@@ -1,0 +1,47 @@
+{% extends "/admin/base.html.twig" %}
+
+{% block admin_content %}
+        <table cellpadding="10px" cellspacing="5px">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Numéro de Standard</th>
+                    <th scope="col">Couleur</th>
+                    <th scope="col">Bannière ref</th>
+                    <th scope="col">Site</th>
+                    <th scope="col">Logo</th>
+                    <th scope="col">Logo Footer</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entite in entiteList %}
+                    <tr>
+                    <td>{{ entite.id }}</td>
+                    <td>{{ entite.name }}</td>
+                    <td>{{ entite.address }}</td>
+                    <td>{{ entite.numStandard }}</td>
+                    <td class="centered">{{ ('<div class="color-patch" style="background: ' ~ entite.couleur ~ '; margin-right:3px;" ></div>') | raw }}{{ entite.couleur }}</td>
+                    <td>{{ entite.banniereRef.id }}</td>
+                    <td><a href="{{ entite.site }}" target="_blank">{{ entite.site }}</a></td>
+                    <td class="logos"><img src="/entite/logo/{{entite.logoPath}}" alt="{{entite.logoPath}}" width="100px"></td>
+                    <td class="logos"><img src="/entite/logoFooter/{{entite.logoFooterPath}}" alt="{{entite.logoFooterPath}}" width="100px"></td>
+                    <td>
+                        <a class="btn edit-btn" href="/admin/entite/edit?entiteId={{ entite.id }}">Modifier</a>
+                    </td>
+                    <td>
+                        <a class="btn delete-btn" href="/admin/entite/delete?entiteId={{ entite.id }}">Supprimer</a>
+                    </td>
+                    </tr>
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="add">
+            <a class="btn add-btn" href="/admin/entite/add">Ajouter</a>
+        </div>
+    </div>
+{% endblock admin_content %}

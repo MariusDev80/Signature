@@ -1,0 +1,122 @@
+{% extends "/base.html.twig" %}
+{% import "/signature/signature.html.twig" as signature%}
+
+{% block content %}
+<h1>Création d'une nouvelle signature</h1>
+    <div class="signature-container">
+        <div class="col1 centered">
+            <div class="one-col-form">
+                <form action="" method="post">
+                    <div class="input-container">
+            
+                        {% set entiteId = signatureData.entiteId ?? currentUser.entite.id %}
+                
+                        <label for="entite">Entité</label>
+                        <select class="{{ entiteHasError ? 'error' : ''}}" id="entite" name="entiteId">
+                            {% for entite in entiteList %}
+                                <option value="{{entite.id}}" {% if entite.id == entiteId %}
+                                    selected
+                                {% endif %}>{{entite.name}}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                    <div class="input-container">
+            
+                        {% set bannerId = signatureData.bannerId ?? currentUser.entite.banniereRef.id %}
+                
+                        <label for="banner">Bannière</label>
+                        <select class="{{ entiteHasError ? 'error' : ''}}" id="banner" name="bannerId">
+                            {% for banner in bannerList %}
+                                <option value="{{banner.id}}" {% if banner.id == bannerId %}
+                                    selected
+                                {% endif %}>{{banner.name}}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                    <div class="input-container">
+            
+                        {% set poste = signatureData.poste %}
+                        {% set posteHasError = errorList.poste ?? false %}
+            
+                        <label for="poste">Poste</label>
+                        <input type="text" class="{{ posteHasError ? 'error' : ''}}" value="{{ poste }}" id="poste" name="poste" maxlength="255">
+                        
+                        {% if posteHasError %}
+                            <p>{{posteHasError}}</p>
+                        {% endif %}
+            
+                    </div>
+                    <div class="input-container">
+            
+                        {% set numStandardCheck = signatureData.numStandardCheck %}
+                        {% set numProCheck = signatureData.numProCheck %}
+            
+                        <label for="num">Numéros</label>
+                        <div class="num" id="num">
+                            <div class="col1 centered">
+                                <label for="numStandard">Numéro du Standard</label>
+                                <input type="checkbox" id="numStandard" name="numStandardCheck" {{numStandardCheck ? "checked" : ""}}>
+                            </div>
+                            <div class="col2 centered">
+                                {% if currentUser.numPro %}
+                                    <label for="numPro">Numéro Professionnel</label>
+                                    <input type="checkbox" id="numPro" name="numProCheck" {{numProCheck ? "checked" : ""}}>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="input-container">
+            
+                        {% set defaultLinksCheck = signatureData.defaultLinksCheck %}
+            
+                        <label for="default-links">Liens des réseaux</label>
+                        <div class="default-links" id="default-links">
+                            <label for="numStandard">Afficher les réseaux par défaut</label>
+                            <input type="checkbox" id="defaultLinksCheck" name="defaultLinksCheck" {{defaultLinksCheck ? "checked" : ""}}>
+                        </div>
+
+                    </div>
+                    <div  class="btn-container">
+                        <div class="cancel-btn"><a href="/">Annuler</a></div>
+                        <button type="submit" class="confirm-btn" name="btn" value="confirm">Valider</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col2 centered">
+            <div class="signature">
+                <div class="signature-apercu">
+                    {{ signature.signature(currentUser, signatureData) }}
+                </div>
+                <div class="codeApercu">
+                    <textarea id="signature-html" disabled>
+{% apply spaceless %}
+{{ signature.signature(currentUser, signatureData) }}
+{% endapply %}
+                    </textarea>
+                    <button onclick="copier()" id="btn-copie">Copier</button>
+                    <script type="text/javascript">
+                        function copier() {
+                            var button_texte = document.getElementById('btn-copie');
+                            var textarea_texte = document.getElementById('signature-html');
+                            console.log(textarea_texte.value);
+
+                            textarea_texte.select();
+                            navigator.clipboard.writeText(textarea_texte.value);
+
+                            if (button_texte.textContent == "Copier"){
+                                button_texte.textContent = "Copié !";
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+{% endblock content %}
+

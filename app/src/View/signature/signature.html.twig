@@ -1,0 +1,51 @@
+{% macro signature(currentUser, signatureData) %}  
+        <style> .sign-table{ row-gap: none;}p {text-align: start;padding: none;margin: 0px;} .fs-14{font-size: 14px;} .spacing {padding: 5px;} .sign-img{max-height: 30%; max-width: 700px;}.space {width: 100%;}.icon {padding: 0px 3px 0px 3px;}</style>
+        <p class="name"><b>{{currentUser.firstName}} {{currentUser.name}}</b></p>
+        {% if signatureData.poste == "" %}
+            <p class="fs-14"><i>{{currentUser.poste}}</i></p>
+        {% else %}
+            <p class="fs-14"><i>{{signatureData.poste}}</i></p>
+        {% endif %}
+                          
+
+        <br>   
+        {% if signatureData.icons.logo %}
+            <a href="{{ signatureData.entite.site }}" target="_blank"><img src="data:image/svg+xml;base64,{{ signatureData.icons.logo }}" alt="" target="_blank" width="30%"></a>
+        {% else %}
+            <p>{{signatureData.entite.name}}</p>        
+        {% endif %}
+        {# <p class="fs-14">Makina Corpus</p> #}
+        <p class="fs-14">
+            {% if signatureData.entite.address|length > 40 %}
+                {{ signatureData.entite.address|nl2br }}
+            {% else %}
+                {{ signatureData.entite.address }}
+            {% endif %}
+        </p>
+        <p class="fs-14">France</p>
+
+        <br>
+
+        {% if signatureData.numStandard %}
+            <p class="fs-14">Téléphone : {{signatureData.numStandard}}</p>
+        {% endif %}
+        {% if signatureData.numPro %}
+            <p class="fs-14">Mobile : {{signatureData.numPro}}</p>
+        {% endif %}     
+
+        <br>
+        
+        <img class="sign-img" src="data:{{ signatureData.banner.mimeType }};base64,{{ signatureData.base64 }}">
+
+        <br>
+
+        <table style="background-color: {{ signatureData.entite.couleur }};">
+            <tr>
+                <td><a href="https://makina-corpus.com" target="_blank"><img src="data:image/svg+xml;base64,{{ signatureData.icons.logoFooter }}" alt="" height="25px"></a></td>
+                <td class="space"></td>
+                {% for data in signatureData.footerLinks %}
+                    <td class="icon"><a href="{{ data.link }}" target="_blank"><img src="data:image/svg+xml;base64,{{ data.icon }}" alt=""  height="20px"></a></td>
+                {% endfor %}
+            </tr>
+        </table>
+{% endmacro %}

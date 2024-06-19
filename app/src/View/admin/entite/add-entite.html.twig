@@ -1,0 +1,12 @@
+{% extends "/admin/base.html.twig" %}
+{% import "/admin/entite/entite-form.html.twig" as entiteForm %}
+
+{% block admin_content %}
+    <div class="two-col-form">
+        <form enctype="multipart/form-data" method="POST">
+            <h2>Ajouter une entité</h2>
+            {{ entiteForm.form(values, null, errorList, bannerList) }}
+        </form>
+    </div>
+
+{% endblock admin_content %}

@@ -1,0 +1,177 @@
+{% macro form(values, entite, errorList, bannerList) %}  
+    <div class="col1">
+        <div class="input-container">
+
+            {% set name = values.name ?? entite.name %}
+            {% set nameHasError = errorList.name ?? false %}
+            
+            <label for="name">Nom</label>
+            <input type="text" class="{{ nameHasError ? 'error' : ''}}" value="{{ name }}" id="name" name="name" maxlength="40" required>
+            
+            {% if nameHasError %}
+                <p>{{nameHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="input-container">
+
+            {% set address = values.address ?? entite.address %}
+            {% set addressHasError = errorList.address ?? false %}
+
+            <label for="address">Adresse</label>
+            <textarea class="{{ addressHasError ? 'error' : ''}}" id="address" name="address" required>{{ address ? address : "" }}</textarea>
+            {% if addressHasError %}
+                <p>{{addressHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="input-container">
+            
+            {% set numStandard = values.numStandard ?? entite.numStandard %}
+            {% set numStandardHasError = errorList.numStandard ?? false %}
+
+            <label for="numStandard">Numéro Standard</label>
+            <input type="text" class="{{ numStandardHasError ? 'error' : ''}}" value="{{ numStandard }}" id="numStandard" name="numStandard" maxlength="10" required>
+            
+            {% if numStandardHasError %}
+                <p>{{numStandardHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="input-container">
+            
+            {% set couleur = values.couleur ?? entite.couleur %}
+            {% set couleurHasError = errorList.couleur ?? false %}
+
+            <label for="couleur">Couleur</label>
+            <input type="color" class="{{ couleurHasError ? 'error' : ''}}" value="{{ couleur }}" id="couleur" name="couleur">
+            
+            {% if couleurHasError %}
+                <p>{{couleurHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="input-container">
+
+            {% set logoHasError = errorList.logo ?? false %}
+        
+            <label for="logo">Logo Entité</label>
+            <input type="file" class="{{ logoHasError ? 'error' : ''}}" id="logo" name="logo">
+            
+            {% if logoHasError %}
+                <p>{{logoHasError}}</p>
+            {% endif %}
+        
+        </div>
+        <div class="input-container">
+
+            {% set logoFooterHasError = errorList.logoFooter ?? false %}
+        
+            <label for="logoFooter">Logo Horizontal <i style="font-size: 9px;">(Présent sur la bannière des reséaux)</i></label>
+            <input type="file" class="{{ logoFooterHasError ? 'error' : ''}}" id="logoFooter" name="logoFooter">
+            
+            {% if logoFooterHasError %}
+                <p>{{logoFooterHasError}}</p>
+            {% endif %}
+        
+        </div>
+        <div class="input-container">
+            
+            {% set site = values.site ?? entite.site %}
+            {% set siteHasError = errorList.site ?? false %}
+
+            <label for="site">Site</label>
+            <input type="text" class="{{ siteHasError ? 'error' : ''}}" value="{{ site }}" id="site" name="site" maxlength="255" required>
+            
+            {% if siteHasError %}
+                <p>{{siteHasError}}</p>
+            {% endif %}
+
+        </div>
+        
+    </div>
+    <div class="col2">
+        <div class="input-container">
+            
+            {% set banniereRef = values.banniereRef ?? entite.banniereRef.id %}
+            {% set banniereRefHasError = errorList.banniereRef ?? false %}
+
+            <label for="banniereRef">Bannière de Référence</label>
+            <select class="{{ banniereRefHasError ? 'error' : ''}}" value="{{ banniereRef }}" id="banniereRef" name="banniereRef" maxlength="255">
+                {% for banner in bannerList %}
+                    <option value="{{banner.id}}" {% if banner.id == banniereRef %} 
+                        selected 
+                    {% endif %}>{{banner.name}}</option>
+                {% endfor %}
+                {{bannerList}}
+            </select>
+            
+            {% if banniereRefHasError %}
+                <p>{{banniereRefHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="container">
+            <label for="image">Aperçu</label>
+            <img class="centered bannerRefPreview" id="image" src="/banner/{{entite.banniereRef.id}}.{{entite.banniereRef.extension}}" alt="Bannière de Référence">
+        </div>
+        <div class="input-container">
+
+            {% set linkX = values.linkX ?? entite.linkX %}
+            {% set linkXHasError = errorList.linkX ?? false %}
+            
+            <label for="linkX">Lien X</label>
+            <input type="text" class="{{ linkXHasError ? 'error' : ''}}" value="{{ linkX }}" id="linkX" name="linkX" maxlength="255">
+            
+            {% if linkXHasError %}
+                <p>{{linkXHasError}}</p>
+            {% endif %}
+        </div>
+        <div class="input-container">
+
+            {% set linkYoutube = values.linkYoutube ?? entite.linkYoutube %}
+            {% set linkYoutubeHasError = errorList.linkYoutube ?? false %}
+            
+            <label for="linkYoutube">Lien Youtube</label>
+            <input type="text" class="{{ linkYoutubeHasError ? 'error' : ''}}" value="{{ linkYoutube }}" id="linkYoutube" name="linkYoutube" maxlength="255">
+            
+            {% if linkYoutubeHasError %}
+                <p>{{linkYoutubeHasError}}</p>
+            {% endif %}
+        </div>
+        <div class="input-container">
+
+            {% set linkGitHub = values.linkGitHub ?? entite.linkGitHub %}
+            {% set linkGitHubHasError = errorList.linkGitHub ?? false %}
+            
+            <label for="linkGitHub">Lien GitHub</label>
+            <input type="text" class="{{ linkGitHubHasError ? 'error' : ''}}" value="{{ linkGitHub }}" id="linkGitHub" name="linkGitHub" maxlength="255">
+            
+            {% if linkGitHubHasError %}
+                <p>{{linkGitHubHasError}}</p>
+            {% endif %}
+        
+        </div> 
+        <div class="input-container">
+        
+            {% set linkLinkedin = values.linkLinkedin ?? entite.linkLinkedin %}
+            {% set linkLinkedinHasError = errorList.linkLinkedin ?? false %}
+            
+            <label for="linkLinkedin">Lien Linkedin</label>
+            <input type="text" class="{{ linkLinkedinHasError ? 'error' : ''}}" value="{{ linkLinkedin }}" id="linkLinkedin" name="linkLinkedin" maxlength="255" >
+            
+            {% if linkLinkedinHasError %}
+                <p>{{linkLinkedinHasError}}</p>
+            {% endif %}
+        
+        </div>
+        
+        
+        <div  class="btn-container">
+            <input type="hidden" value="{{entiteId}}" name="entiteId">
+            <div class="cancel-btn"><a href="/admin/entite">Annuler</a></div>
+            <button type="submit" class="confirm-btn" name="btn" value="confirm">Valider</button>
+        </div>
+    </div>
+
+{% endmacro %}

@@ -1,0 +1,41 @@
+{% extends "/base.html.twig" %}
+
+{% block content %}
+    <div class="profile">
+        <div class="col1">
+            <div class="container">
+                <label for="login">Login</label>
+                <div class="text" id="login">{{ currentUser.login }}</div>
+            </div>
+            <div class="container">
+                <label for="firstName">Prénom</label>
+                <div class="text" id="firstName">{{ currentUser.firstName }}</div>
+            </div>
+            <div class="container">
+                <label for="name">Nom</label>
+                <div class="text" id="name">{{ currentUser.name }}</div>
+            </div>
+            <div class="container">
+                <label for="poste">Poste</label>
+                <div class="text" id="poste">{{ currentUser.poste }}</div>
+            </div>
+        </div>
+        <div class="col2">
+            <div class="container">
+                <label for="entite">Entite</label>
+                <div class="text" id="entite">{{ currentUser.entite.name }}</div>
+            </div>
+            <div class="container">
+                <label for="email">E-mail</label>
+                <div class="text" id="email">{{ currentUser.email }}</div>
+            </div>
+            <div class="container">
+                <label for="numPro">Numéro Professionnel</label>
+                <div class="text" id="numPro">{{ currentUser.numPro }}</div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a class="btn edit-btn" href="/profile/edit?userId={{currentUser.id}}">Modifier</a>
+    </div>
+{% endblock content %}

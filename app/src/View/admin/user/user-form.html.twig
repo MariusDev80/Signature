@@ -1,0 +1,151 @@
+{% macro form(entiteList, values, user, errorList, editing) %}  
+    <div class="col1">
+        <div class="input-container">
+
+            {% set login = values.login ?? user.login %}
+            {% set loginHasError = errorList.login ?? false %}
+            
+            <label for="login">Trigramme</label>
+            <input type="text" class="{{ loginHasError ? 'error' : ''}}" value="{{ login }}" id="login" name="login" maxlength="40" required>
+            
+            {% if loginHasError %}
+                <p>{{loginHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="input-container">
+
+            {% set passwordHasError = errorList.password ?? false %}
+
+            <label for="password"> {% if editing == true %} Nouveau{% endif %} Mot de Passe</label>
+            <input type="password" class="{{ passwordHasError ? 'error' : ''}}" value="" id="password" name="password" maxlength="255" {% if editing != true %} required{% endif %}>
+            
+            {% if passwordHasError %}
+                <p>{{passwordHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="input-container">
+        
+            {% set passwordConfirmHasError = errorList.passwordConfirm ?? false %}
+
+            <label for="passwordConfirm"> Confirmation Mot de Passe</label>
+            <input type="password" class="{{ passwordConfirmHasError ? 'error' : ''}}" value="" id="passwordConfirm" name="passwordConfirm" maxlength="255" {% if editing != true %} required{% endif %}>
+            
+            {% if passwordConfirmHasError %}
+                <p>{{passwordConfirmHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="input-container">
+            
+            {% set firstName = values.firstName ?? user.firstName %}
+            {% set firstNameHasError = errorList.firstName ?? false %}
+
+            <label for="firstName">Prénom</label>
+            <input type="text" class="{{ firstNameHasError ? 'error' : ''}}" value="{{ firstName }}" id="firstName" name="firstName" maxlength="40" required>
+            
+            {% if firstNameHasError %}
+                <p>{{firstNameHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="input-container">
+            
+            {% set name = values.name ?? user.name %}
+            {% set nameHasError = errorList.name ?? false %}
+
+            <label for="name">Nom</label>
+            <input type="text" class="{{ nameHasError ? 'error' : ''}}" value="{{ name }}" id="name" name="name" maxlength="40" required>
+            
+            {% if nameHasError %}
+                <p>{{nameHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="input-container">
+            
+            {% set poste = values.poste ?? user.poste %}
+            {% set posteHasError = errorList.poste ?? false %}
+
+            <label for="poste">Poste</label>
+            <input type="text" class="{{ posteHasError ? 'error' : ''}}" value="{{ poste }}" id="poste" name="poste" maxlength="255" required>
+            
+            {% if posteHasError %}
+                <p>{{posteHasError}}</p>
+            {% endif %}
+
+        </div>
+    </div>
+    <div class="col2">
+        <div class="input-container">
+            
+            {% set userEntite = values.entite ?? user.entite.id %}
+            {% set entiteHasError = errorList.entite ?? false %}
+    
+            <label for="entite">Entité</label>
+            <select class="{{ entiteHasError ? 'error' : ''}}" value="{{ userEntite }}" id="entite" name="entite" maxlength="255" required>
+                {% for entite in entiteList %}
+                    <option value="{{entite.id}}" {% if entite.id == userEntite %}
+                        selected
+                    {% endif %}>{{entite.name}}</option>
+                {% endfor %}
+            </select>
+            
+            {% if entiteHasError %}
+                <p>{{entiteHasError}}</p>
+            {% endif %}
+    
+        </div>
+        <div class="input-container">
+                    
+            {% set email = values.email ?? user.email %}
+            {% set emailHasError = errorList.email ?? false %}
+
+            <label for="email">E-mail</label>
+            <input type="text" class="{{ emailHasError ? 'error' : ''}}" value="{{ email }}" id="email" name="email" maxlength="255" required>
+            
+            {% if emailHasError %}
+                <p>{{emailHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="input-container">
+            
+            {% set numPro = values.numPro ?? user.numPro %}
+            {% set numProHasError = errorList.numPro ?? false %}
+
+            <label for="numPro">Numéro Tel Pro</label>
+            <input type="text" class="{{ numProHasError ? 'error' : ''}}" value="{{ numPro }}" id="numPro" name="numPro" maxlength="10">
+            
+            {% if numProHasError %}
+                <p>{{numProHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="input-container">
+            
+            {% set isAdmin = values.isAdmin ?? user.isAdmin %}
+            {% set isMarketing = values.isMarketing ?? user.isMarketing %}
+
+            <label for="roles">Roles</label>
+            <div class="roles" id="roles">
+                <div class="col1 centered">
+                    <label for="isAdmin">Admin</label>
+                    <input type="checkbox" id="isAdmin" name="isAdmin" {{isAdmin ? "checked" : ""}}>
+                </div>
+                <div class="col2 centered">
+                    <label for="isMarketing">Marketing</label>
+                    <input type="checkbox" id="isMarketing" name="isMarketing" {{isMarketing ? "checked" : ""}}>
+                </div>
+            </div>
+
+        </div>
+        <div  class="btn-container">
+            <input type="hidden" value="{{user.id}}" name="userId">
+            <div class="cancel-btn"><a href="/admin/user">Annuler</a></div>
+            <button type="submit" class="confirm-btn" name="btn" value="confirm">Valider</button>
+        </div>
+    </div>
+
+{% endmacro %}

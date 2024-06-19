@@ -1,0 +1,64 @@
+{% extends "/admin/base.html.twig" %}
+
+{% block admin_content %}
+    <div class="list">
+        <table cellpadding="10px" cellspacing="5px">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Login</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Poste</th>
+                    <th scope="col">Entité</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Numéro Pro</th>
+                    <th scope="col">Admin</th>
+                    <th scope="col">Marketing</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in userList %}
+                    <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.login }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.poste }}</td>
+                    <td>{{ user.entite.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.numPro }}</td>
+                    <td>
+                        {% if user.isAdmin %}
+                            ✔
+                        {% else %}
+                            ✘
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.isMarketing %}
+                            ✔
+                        {% else %}
+                            ✘
+                        {% endif %}
+                        
+                    </td>
+                    {# "✘" : "✔" #}
+                    <td>
+                        <a class="btn edit-btn" href="/admin/user/edit?userId={{ user.id }}">Modifier</a>
+                    </td>   
+                    <td>
+                        <a class="btn delete-btn" href="/admin/user/delete?userId={{ user.id }}">Supprimer</a>
+                    </td>
+                    </tr>
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="add">
+            <a class="btn add-btn" href="/admin/user/add">Ajouter</a>
+        </div>
+    </div>
+{% endblock admin_content %}

@@ -1,0 +1,14 @@
+{% extends "/marketing/base.html.twig" %}
+
+{% block marketing_content %}
+    <div class="delete">
+        <h2>Êtes-vous sur de vouloir supprimer la bannière {{banner.name}} ?</h2>
+        <form method="post">
+            <div>
+                <button type="submit" class="yes-btn" value="confirm" name="btn">Oui</button>
+                <button type="submit" class="no-btn" value="cancel" name="btn">Non</button>
+            </div>
+            <input type="hidden" name="bannerId" value="{{banner.id}}">
+        </form>
+    </div>
+{% endblock marketing_content %}
