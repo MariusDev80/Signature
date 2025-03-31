@@ -30,8 +30,6 @@ class EntiteController extends AbstractController
             
             if (empty($errorList)) {
                 $entite = $this->container->getEntiteRepository()->add($values);
-                rename($_FILES['logo']['tmp_name'], "entite/logo/".$entite->logoPath);
-                rename($_FILES['logoFooter']['tmp_name'], "entite/logoFooter/".$entite->logoFooterPath);
                 $this->addMessage('success', "L'entité a été ajoutée avec succès !");
                 $this->redirect('/admin/entite');
             }
@@ -61,20 +59,21 @@ class EntiteController extends AbstractController
                 $this->addMessage('success', "L'entité a été supprimée avec succès !");
                 $this->redirect('/admin/entite');  
             } else {
-                $message = "Annulation de la suppréssion de l'entité !<br>";
+                $this->addMessage('failure', "Annulation de la suppression de l'entité !");
                 if ($usersWithEntite && $btn == "confirm") {
-                    $message .= "Les utilisateurs suivants sont liés à cette entité : <br>";
+                    $message = '';
+                    $message .= "Les utilisateurs suivants sont liés à cette entité : ";
                     $nb = 0;
                     foreach ($usersWithEntite as $user) {
                         $message .= $user->firstName . ' ' . $user->name . ',';
                         $nb++;
                         if($nb >= 10){
+                            $message .= '...';
                             break; 
                         }
                     }
-                    $message .= '...';
+                    $this->addMessage('failure', $message);
                 }
-                $this->addMessage('failure', $message);
                 $this->redirect('/admin/entite');
             }
         }
@@ -114,14 +113,6 @@ class EntiteController extends AbstractController
             if (empty($errorList)) {
 
                 $entite = $this->container->getEntiteRepository()->edit($entiteId, $values);
-
-                if ($_FILES['logo']['name'] != ""){
-                    move_uploaded_file($_FILES['logo']['tmp_name'], $this->getPublicDir()."entite/logo/".$entite->logoPath);
-                }
-
-                if ($_FILES['logoFooter']['name'] != ""){
-                    move_uploaded_file($_FILES['logoFooter']['tmp_name'], $this->getPublicDir()."entite/logoFooter/".$entite->logoFooterPath);
-                }
                 $this->addMessage('success', "L'entité a été modifié avec succès !");
                 $this->redirect('/admin/entite');
             } 
@@ -162,9 +153,9 @@ class EntiteController extends AbstractController
         if ($error = $this->validateField('banniereRef', "#^[\d]{1,3}$#")) {
             $errorList['banniereRef'] = $error;
         }
-        $values['site'] = $_POST['site'];
-        if ($error = $this->validateField('site', "#^.{0,255}$#")) {
-            $errorList['site'] = $error;
+        $values['link'] = $_POST['link'];
+        if ($error = $this->validateField('link', "#^.{0,255}$#")) {
+            $errorList['link'] = $error;
         }
         $values['linkX'] = $_POST['linkX'];
         if ($error = $this->validateField('linkX', "#^.{0,255}$#", false)) {
@@ -181,26 +172,6 @@ class EntiteController extends AbstractController
         $values['linkLinkedin'] = $_POST['linkLinkedin'];
         if ($error = $this->validateField('linkLinkedin', "#^.{0,255}$#", false)) {
             $errorList['address'] = $error;
-        }
-        if (!isset($_FILES['logo'])) {
-            $errorList['logo'] = 'Aucun fichier séléctionné';
-        } elseif ($_FILES['logo']['name'] != "") {
-            $extension = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
-            if ($extension != 'jpeg' && $extension != 'jpg' && $extension != 'svg' && $extension != 'png') {
-                $errorList['logo'] = 'Erreur de format du fichier (jpeg/jpg/svg/png acceptés)';
-            } else {
-                $values['logoPath'] = $_FILES['logo']['name'];
-            }
-        }
-        if (!isset($_FILES['logoFooter'])) {
-            $errorList['logoFooter'] = 'Aucun fichier séléctionné';
-        } elseif (!$_FILES['logoFooter']['name'] == "") {
-            $extension = pathinfo($_FILES['logoFooter']['name'], PATHINFO_EXTENSION);
-            if ($extension != 'jpeg' && $extension != 'jpg' && $extension != 'svg' && $extension != 'png') {
-                $errorList['logoFooter'] = 'Erreur de format du fichier (jpeg/jpg/svg/png acceptés)';
-            } else {
-                $values['logoFooterPath'] = $_FILES['logoFooter']['name'];
-            }
         }
         
         return $errorList;

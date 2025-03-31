@@ -77,14 +77,14 @@
         </div>
         <div class="input-container">
             
-            {% set site = values.site ?? entite.site %}
-            {% set siteHasError = errorList.site ?? false %}
+            {% set link = values.link ?? entite.link %}
+            {% set linkHasError = errorList.link ?? false %}
 
-            <label for="site">Site</label>
-            <input type="text" class="{{ siteHasError ? 'error' : ''}}" value="{{ site }}" id="site" name="site" maxlength="255" required>
+            <label for="link">Site</label>
+            <input type="text" class="{{ linkHasError ? 'error' : ''}}" value="{{ link }}" id="link" name="link" maxlength="255" required>
             
-            {% if siteHasError %}
-                <p>{{siteHasError}}</p>
+            {% if linkHasError %}
+                <p>{{linkHasError}}</p>
             {% endif %}
 
         </div>

@@ -23,9 +23,10 @@
 
 .messages {
     display: flex;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+    position: relative;
+    flex-direction: column;
+    margin: 20px 0px;
+    gap: 5px;
 }
 
 .messages .success {
@@ -344,6 +345,7 @@ textarea{
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 5px;
 }
 
 .col1 {
@@ -405,8 +407,14 @@ textarea{
     margin-bottom: 20px;
 }
 
-.edit-btn{
+.edit-btn,
+.copy-btn {
     background-color: rgb(53, 112, 201);
+    margin-bottom: 20px;
+}
+
+.download-btn {
+    background-color: rgb(53, 201, 53);
     margin-bottom: 20px;
 }
 

@@ -27,17 +27,6 @@
         {% endif %}
     </header>
 
-    <div class="content">
-    {% if messages|length %}
-        <div class="messages">
-            {% for message in messages %}
-                <div class="{{ message.level}}">
-                    <p>{{ message.message|raw }}</p>
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-
     <div class<div class="nav">
     
         {% if currentUser.isAdmin %}
@@ -58,7 +47,28 @@
         
     </div>
 
-    {% block content %}{% endblock %}
+
+    <div class="content">
+        {% if messages|length %}
+            <div class="messages">
+                {% for level,lvlMessages in messages %}
+                    <div class="{{ level }}">
+                        <p>
+                            {% if lvlMessages|length == 1 %}
+                                {{ lvlMessages[0] }}   
+                            {% else %}
+                                {% for message in lvlMessages %}
+                                    {{ message }} <br>
+                                {% endfor %}
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    
+
+        {% block content %}{% endblock %}
     </div>
 </body>
 </html>

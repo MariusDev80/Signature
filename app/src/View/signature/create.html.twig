@@ -80,7 +80,6 @@
 
                     </div>
                     <div  class="btn-container">
-                        <div class="cancel-btn"><a href="/">Annuler</a></div>
                         <button type="submit" class="confirm-btn" name="btn" value="confirm">Valider</button>
                     </div>
                 </form>
@@ -92,26 +91,52 @@
                     {{ signature.signature(currentUser, signatureData) }}
                 </div>
                 <div class="codeApercu">
-                    <textarea id="signature-html" disabled>
+                    <textarea id="signature" disabled>
 {% apply spaceless %}
 {{ signature.signature(currentUser, signatureData) }}
 {% endapply %}
                     </textarea>
-                    <button onclick="copier()" id="btn-copie">Copier</button>
-                    <script type="text/javascript">
-                        function copier() {
-                            var button_texte = document.getElementById('btn-copie');
-                            var textarea_texte = document.getElementById('signature-html');
-                            console.log(textarea_texte.value);
+                    <div class="centered">
+                        <button class="btn copy-btn" onclick="copier(signature.value)" id="btn-copie">Copier</button>
+                        <script type="text/javascript">
+                            function copier(signature) {
+                                var button_texte = document.getElementById('btn-copie');
+                                console.log(signature);
+                                navigator.clipboard.writeText(signature);
 
-                            textarea_texte.select();
-                            navigator.clipboard.writeText(textarea_texte.value);
-
-                            if (button_texte.textContent == "Copier"){
-                                button_texte.textContent = "Copié !";
+                                if (button_texte.textContent == "Copier"){
+                                    button_texte.textContent = "Copié !";
+                                }
                             }
-                        }
-                    </script>
+                        </script>
+                        <button class="btn download-btn" onclick="saveTextAsFile(signature.value,'signature.html')">Télécharger</button>
+                        <script>
+                            function saveTextAsFile(textToWrite, fileNameToSaveAs)
+                            {
+                                var textFileAsBlob = new Blob([textToWrite], {type:'text/html'}); 
+                                var downloadLink = document.createElement("a");
+                                downloadLink.download = fileNameToSaveAs;
+                                downloadLink.innerHTML = "Download File";
+                                if (window.webkitURL != null)
+                                {
+                                    // Chrome allows the link to be clicked
+                                    // without actually adding it to the DOM.
+                                    downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+                                }
+                                else
+                                {
+                                    // Firefox requires the link to be added to the DOM
+                                    // before it can be clicked.
+                                    downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+                                    downloadLink.onclick = destroyClickedElement;
+                                    downloadLink.style.display = "none";
+                                    document.body.appendChild(downloadLink);
+                                }
+                            
+                                downloadLink.click();
+                            }
+                        </script>
+                    </div>
                 </div>
             </div>
             

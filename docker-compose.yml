@@ -12,6 +12,7 @@ services:
       - ./mariadb-data:/var/lib/mysql
     networks:
         - site
+        
   php-fpm:
       container_name: php-fpm
       build: ./docker/php-fpm

@@ -20,7 +20,8 @@ function createDatabase(Database $database)
     extension CHAR(10) NOT NULL,
     mimeType CHAR(255) NOT NULL,
     createdAt DATETIME NOT NULL,
-    updatedAt DATETIME NULL, 
+    updatedAt DATETIME NULL,
+    link CHAR(255) NULL, 
     CONSTRAINT pk_banners PRIMARY KEY (id)
     );
 
@@ -31,9 +32,7 @@ function createDatabase(Database $database)
     numStandard CHAR(10) NULL,
     couleur CHAR(7) NULL, /* Prend en compte le format #ffffff */
     banniereRef INT, /* aura besoin d'une constrainte pour avoir une clé étragère */
-    site CHAR(255) NULL, /*Modification potentielle sur la longueur */
-    logoPath CHAR(255) NULL,
-    logoFooterPath CHAR(255) NULL,
+    link CHAR(255) NULL, /*Modification potentielle sur la longueur */
     linkX CHAR(255) NULL,
     linkYoutube CHAR(255) NULL,
     linkGitHub CHAR(255) NULL,
@@ -64,15 +63,16 @@ function createDatabase(Database $database)
     echo "Insertion des données par défaut\n";
 
     $database->rawExecute(<<<SQL
-    INSERT INTO test_db.banners(name, extension, createdAt, updatedAt, mimeType) VALUES("Makina Corpus", "png", "2024/05/12", "2024/05/12", "image/png");
-    INSERT INTO test_db.banners(name, extension, createdAt, updatedAt, mimeType) VALUES("Makina Corpus Symfony", "png", "2024/05/12", "2024/05/12", "image/png");
-    INSERT INTO test_db.banners(name, extension, createdAt, updatedAt, mimeType) VALUES("Makina Corpus Territoires", "png", "2024/05/12", "2024/05/12", "image/png");
-    INSERT INTO test_db.banners(name, extension, createdAt, updatedAt, mimeType) VALUES("Geotrek", "png", "2024/05/12", "2024/05/12", "image/png");
+    INSERT INTO test_db.banners(name, extension, createdAt, updatedAt, mimeType, link) VALUES("Makina Corpus", "png", "2024/05/12", "2024/05/12", "image/png","makina-corpus.com");
+    INSERT INTO test_db.banners(name, extension, createdAt, updatedAt, mimeType, link) VALUES("Makina Corpus Symfony", "png", "2024/05/12", "2024/05/12", "image/png","makina-corpus.com");
+    INSERT INTO test_db.banners(name, extension, createdAt, updatedAt, mimeType, link) VALUES("Makina Corpus Territoires", "png", "2024/05/12", "2024/05/12", "image/png","territoires.makina-corpus.com");
+    INSERT INTO test_db.banners(name, extension, createdAt, updatedAt, mimeType, link) VALUES("Makina Corpus Formations", "png", "2024/05/12", "2024/05/12", "image/png","makina-corpus.com/formations");
+    INSERT INTO test_db.banners(name, extension, createdAt, updatedAt, mimeType, link) VALUES("Geotrek", "png", "2024/05/12", "2024/05/12", "image/png","geotrek.fr");
 
-    INSERT INTO test_db.entite(name, banniereRef, address, numStandard, couleur, site, logoPath, logoFooterPath, linkX, linkYoutube, linkGitHub, linkLinkedin) VALUES("Makina Corpus", 1, "11 rue Marchix\n44000 Nantes", "0251798080","#260b5b", "https://makina-corpus.com", "makina-corpus.svg", "makina-corpus.svg", "https://x.com/makina_corpus", "https://www.youtube.com/user/makinacorpus", "https://github.com/makinacorpus/", "https://www.linkedin.com/company/makina-corpus/");
-    INSERT INTO test_db.entite(name, banniereRef, address, numStandard, couleur, site, logoPath, logoFooterPath) VALUES("Makina Corpus Formations", 2, "49 Gd Rue Saint-Michel\n31400 Toulouse", "0251798080","#ffd109", "https://makina-corpus.com/formations", "makina-corpus-formations.svg", "makina-corpus.svg");
-    INSERT INTO test_db.entite(name, banniereRef, address, numStandard, couleur, site, logoPath, logoFooterPath) VALUES("Makina Corpus Territoires", 3, "11 rue Marchix\n44000 Nantes", "0251798080","#50af55", "https://territoires.makina-corpus.com/", "makina-corpus-territoires.svg", "makina-corpus.svg");
-    INSERT INTO test_db.entite(name, banniereRef, address, numStandard, couleur, site, logoFooterPath, linkX, linkYoutube, linkGitHub) VALUES("Geotrek", 4, "49 Gd Rue Saint-Michel\n31400 Toulouse", "0970332150","#b3ce0c", "https://geotrek.fr/", "makina-corpus.svg", "https://x.com/GeotrekCom", "https://x.com/GeotrekCom", "https://github.com/GeotrekCE");
+    INSERT INTO test_db.entite(name, banniereRef, address, numStandard, couleur, link, linkX, linkYoutube, linkGitHub, linkLinkedin) VALUES("Makina Corpus", 1, "11 rue Marchix\n44000 Nantes", "0251798080","#260b5b", "makina-corpus.com",  "https://x.com/makina_corpus", "https://www.youtube.com/user/makinacorpus", "https://github.com/makinacorpus/", "https://www.linkedin.com/company/makina-corpus/");
+    INSERT INTO test_db.entite(name, banniereRef, address, numStandard, couleur, link) VALUES("Makina Corpus Formations", 2, "49 Gd Rue Saint-Michel\n31400 Toulouse", "0251798080","#ffd109", "makina-corpus.com/formations");
+    INSERT INTO test_db.entite(name, banniereRef, address, numStandard, couleur, link) VALUES("Makina Corpus Territoires", 3, "11 rue Marchix\n44000 Nantes", "0251798080","#50af55", "territoires.makina-corpus.com");
+    INSERT INTO test_db.entite(name, banniereRef, address, numStandard, couleur, link, linkX, linkYoutube, linkGitHub) VALUES("Geotrek", 4, "49 Gd Rue Saint-Michel\n31400 Toulouse", "0970332150","#b3ce0c", "geotrek.fr", "https://x.com/GeotrekCom", "https://x.com/GeotrekCom", "https://github.com/GeotrekCE");
 
     INSERT INTO test_db.users(id,login,password,name,firstName,poste,entite,isAdmin,isMarketing, numPro) VALUES(1,"adm","ac9689e2272427085e35b9d3e3e8bed88cb3434828b43b86fc0596cad4c6e270","Dudouet","Marius","Admin",1, true, true, "0123456789");
 

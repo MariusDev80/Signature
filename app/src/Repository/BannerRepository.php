@@ -34,9 +34,11 @@ class BannerRepository
         return $this->find($this->db->add('banners', $values));
 	}
 
-    public function edit(int $bannerId, array $values): Banner
+    public function edit(int $bannerId, array $values, string $file = null): Banner
 	{	
-		$values['mimeType'] = mime_content_type($values['extension']);
+		if ($file){
+			$values['mimeType'] = mime_content_type($file);
+		}
 		$values['updatedAt'] = new DateTime();
 		$values['updatedAt'] = $values['updatedAt']->format('Y-m-d');
 		$this->db->edit('banners', $bannerId, $values);
@@ -67,7 +69,8 @@ class BannerRepository
 			$bannerData['extension'],
 			$bannerData['mimeType'],
 			new DateTime($bannerData['createdAt']),
-			new DateTime($bannerData['updatedAt'])
+			new DateTime($bannerData['updatedAt']),
+			$bannerData['link']
 		);
 
 		return $banner;

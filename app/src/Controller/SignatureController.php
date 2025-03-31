@@ -33,14 +33,6 @@ class SignatureController extends AbstractController
             ;
 
             $base64 = base64_encode(file_get_contents("banner/$banner->id.$banner->extension"));
-            
-            if ($entite->logoPath) {
-                $icons['logo'] = base64_encode(file_get_contents("entite/logo/$entite->logoPath"));
-            }
-
-            if ($entite->logoFooterPath) {
-                $icons['logoFooter'] = base64_encode(file_get_contents("entite/logoFooter/$entite->logoFooterPath"));
-            }
 
             $signatureData['icons'] = $icons;
             $signatureData['entite'] = $entite;
@@ -76,16 +68,6 @@ class SignatureController extends AbstractController
                 ->find($user->entite->banniereRef->id)
             ;
             $base64 = base64_encode(file_get_contents("banner/$banner->id.$banner->extension"));
-
-
-
-            if ($entite->logoPath) {
-                $icons['logo'] = base64_encode(file_get_contents("entite/logo/$entite->logoPath"));
-            }
-
-            if ($entite->logoFooterPath) {
-                $icons['logoFooter'] = base64_encode(file_get_contents("entite/logoFooter/$entite->logoFooterPath"));
-            }
 
             $signatureData = [
                 'footerLinks' => $entite->getRsLinkList(),
@@ -128,7 +110,7 @@ class SignatureController extends AbstractController
         $errorList = [];
 
         $signatureData['poste'] = $_POST['poste'];
-        if ($error = $this->validateField('poste', "#^[A-Za-z][A-Za-z- ]{0,40}$#", false)) {
+        if ($error = $this->validateField('poste', "#^[A-Za-z].{0,40}$#", false)) {
             $errorList['poste'] = $error;
         }
 

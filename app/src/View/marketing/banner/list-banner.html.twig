@@ -9,6 +9,7 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Extension</th>
                     <th scope="col">Image</th>
+                    <th scope="col">Lien</th>
                     <th scope="col">Date de création</th>
                     <th scope="col">Date dernière modif</th>
                     <th></th>
@@ -23,6 +24,7 @@
                     <td>{{ banner.name }}</td>
                     <td>{{ banner.extension }}</td>
                     <td><img src="/banner/{{ banner.id }}.{{banner.extension}}" alt="" width="150px" height="60px"></td>
+                    <td>{{ banner.link }}</td>
                     <td>{{ banner.createdAt|format_datetime('short', 'none', locale='fr') }}</td>
                     <td>{{ banner.updatedAt|format_datetime('short', 'none', locale='fr') }}</td>
                     <td>

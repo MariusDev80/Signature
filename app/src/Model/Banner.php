@@ -3,6 +3,7 @@
 namespace Signature\Model;
 
 use DateTime;
+use Override;
 
 class Banner
 {
@@ -12,8 +13,10 @@ class Banner
         public string $extension,
         public string $mimeType,
         public DateTime $createdAt,
-        public DateTime $updatedAt
+        public DateTime $updatedAt,
+        public ?string $link,
     ) { }
+    
     
     public function getBannerPath(): string 
     {

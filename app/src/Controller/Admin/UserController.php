@@ -148,11 +148,11 @@ class UserController extends AbstractController
             }
         }
         $values['name'] = $_POST['name'];
-        if ($error = $this->validateField('name', "#^[A-Za-z][A-Za-z-]{3,40}$#")) {
+        if ($error = $this->validateField('name', "#^[A-Za-z][A-Za-z-]{2,40}$#")) {
             $errorList['name'] = $error;
         }
         $values['firstName'] = $_POST['firstName'];
-        if ($error = $this->validateField('firstName', "#^[A-Za-z][A-Za-z-]{3,40}$#")) {
+        if ($error = $this->validateField('firstName', "#^[A-Za-z][A-Za-z-]{2,40}$#")) {
             $errorList['firstName'] = $error;
         }
         $values['poste'] = $_POST['poste'];

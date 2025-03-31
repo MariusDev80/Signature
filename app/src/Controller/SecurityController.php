@@ -25,7 +25,7 @@ class SecurityController extends AbstractController
                 $this->container->loginUser($user);
                 $this->redirect('/');
             } else {
-                $error = 'Trigramme ou Mot de passe incorrect';
+                $this->addMessage('failure','Trigramme ou Mot de passe incorrect');
             }
         }
         
@@ -33,7 +33,6 @@ class SecurityController extends AbstractController
         $this->render(
             'security/connection.html.twig',
             [
-                'error' => $error,
             ]
         );
     }
@@ -108,7 +107,7 @@ class SecurityController extends AbstractController
             $errorList['firstName'] = $error;
         }
         $values['poste'] = $_POST['poste'];
-        if ($error = $this->validateField('poste', "#^[A-Za-z][A-Za-z-]{0,40}$#")) {
+        if ($error = $this->validateField('poste', "#^[A-Za-z].{0,40}$#")) {
             $errorList['poste'] = $error;
         }
         $values['entite'] = (int)$_POST['entite'];

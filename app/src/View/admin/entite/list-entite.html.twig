@@ -1,6 +1,7 @@
 {% extends "/admin/base.html.twig" %}
 
 {% block admin_content %}
+    <div class="list">
         <table cellpadding="10px" cellspacing="5px">
             <thead>
                 <tr>
@@ -11,8 +12,6 @@
                     <th scope="col">Couleur</th>
                     <th scope="col">Bannière ref</th>
                     <th scope="col">Site</th>
-                    <th scope="col">Logo</th>
-                    <th scope="col">Logo Footer</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -26,9 +25,7 @@
                     <td>{{ entite.numStandard }}</td>
                     <td class="centered">{{ ('<div class="color-patch" style="background: ' ~ entite.couleur ~ '; margin-right:3px;" ></div>') | raw }}{{ entite.couleur }}</td>
                     <td>{{ entite.banniereRef.id }}</td>
-                    <td><a href="{{ entite.site }}" target="_blank">{{ entite.site }}</a></td>
-                    <td class="logos"><img src="/entite/logo/{{entite.logoPath}}" alt="{{entite.logoPath}}" width="100px"></td>
-                    <td class="logos"><img src="/entite/logoFooter/{{entite.logoFooterPath}}" alt="{{entite.logoFooterPath}}" width="100px"></td>
+                    <td><a href="{{ entite.link }}" target="_blank">{{ entite.link }}</a></td>
                     <td>
                         <a class="btn edit-btn" href="/admin/entite/edit?entiteId={{ entite.id }}">Modifier</a>
                     </td>

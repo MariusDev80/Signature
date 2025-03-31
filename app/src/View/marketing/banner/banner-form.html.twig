@@ -1,4 +1,4 @@
-{% macro form(values, banner, errorList) %}  
+{% macro form(values, banner, errorList, editing) %}  
     <div class="col1">
         <div class="input-container">
 
@@ -15,10 +15,23 @@
         </div>
         <div class="input-container">
 
+            {% set link = values.link ?? banner.link %}
+            {% set linkHasError = errorList.link ?? false %}
+            
+            <label for="link">Site</label>
+            <input type="text" class="{{ linkHasError ? 'error' : ''}}" value="{{ link }}" id="link" name="link" maxlength="255">
+            
+            {% if linkHasError %}
+                <p>{{linkHasError}}</p>
+            {% endif %}
+
+        </div>
+        <div class="input-container">
+
             {% set bannerHasError = errorList.banner ?? false %}
 
             <label for="banner">Fichier Original</label>
-            <input type="file" class="{{ bannerHasError ? 'error' : ''}}" id="banner" name="banner" maxlength="255" required>
+            <input type="file" class="{{ bannerHasError ? 'error' : ''}}" id="banner" name="banner" maxlength="255" {% if editing != true %} required {% endif %}>
             
             {% if bannerHasError %}
                 <p>{{bannerHasError}}</p>

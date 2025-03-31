@@ -74,9 +74,9 @@ abstract class AbstractController
 
     protected function addMessage(string $level, string $message): void
     {
-        $_SESSION['messages'][] = [
-            'level' => $level,
-            'message' => $message,
-        ];
+        if (!isset($_SESSION['messages'][$level])) {
+            $_SESSION['messages'][$level] = [];
+        }
+        $_SESSION['messages'][$level][] = $message;
     }
 }
