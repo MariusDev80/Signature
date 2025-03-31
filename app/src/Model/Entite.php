@@ -31,12 +31,12 @@ class Entite
         foreach ($linksDefinition as $svgName => $propertyName) {
             if ($this->$propertyName) {
                 $footerLinks[] = [
-                    'icon' => base64_encode(file_get_contents('img/icon/' . $svgName . '.svg')),
+                    'icon' => base64_encode(file_get_contents('banner/icon/' . $svgName . '.svg')),
                     'link' => $this->$propertyName,
                 ];
             } elseif ($defaultEntite && $defaultEntite->$propertyName ) {
                 $footerLinks[] = [
-                    'icon' => base64_encode(file_get_contents('img/icon/' . $svgName . '.svg')),
+                    'icon' => base64_encode(file_get_contents('banner/icon/' . $svgName . '.svg')),
                     'link' => $defaultEntite->$propertyName,
                 ];
             }
