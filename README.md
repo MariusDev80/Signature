@@ -8,6 +8,9 @@ docker compose exec php-fpm chown www-data:www-data -R /var/www/public /var/www/
 docker compose exec -u www-data php-fpm composer install
 docker compose exec -u www-data php-fpm php install.php
 
+# adresse du localhost
+https://localhost:6443/
+
 # allumer la stack
 docker compose up -d
 
