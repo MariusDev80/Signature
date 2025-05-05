@@ -6,7 +6,9 @@ Ce document décrit l'utilité de chaque fichier PHP et Twig présent dans le do
 
 ## Structure des fichiers
 
-### 1. **Dossier `Controller/`**
+### 1. **Dossier `src/`**
+
+#### 1. **Dossier `Controller/`**
 Ce dossier contient les contrôleurs qui gèrent les requêtes HTTP et orchestrent les interactions entre les modèles et les vues.
 
 #### **Fichiers principaux**
@@ -48,7 +50,7 @@ Ce dossier contient les contrôleurs qui gèrent les requêtes HTTP et orchestre
 
 ---
 
-### 2. **Dossier `Model/`**
+#### 2. **Dossier `Model/`**
 Ce dossier contient les classes représentant les entités métier.
 
 - **`Model/User.php`**  
@@ -65,7 +67,7 @@ Ce dossier contient les classes représentant les entités métier.
 
 ---
 
-### 3. **Dossier `Repository/`**
+#### 3. **Dossier `Repository/`**
 Ce dossier contient les classes pour interagir avec la base de données.
 
 - **`Repository/UserRepository.php`**  
@@ -82,7 +84,7 @@ Ce dossier contient les classes pour interagir avec la base de données.
 
 ---
 
-### 4. **Dossier `Service/`**
+#### 4. **Dossier `Service/`**
 Ce dossier contient les services qui fournissent des fonctionnalités transversales.
 
 - **`Service/Container.php`**  
@@ -107,7 +109,7 @@ Ce dossier contient les services qui fournissent des fonctionnalités transversa
 
 ---
 
-### 5. **Dossier `View/`**
+#### 5. **Dossier `View/`**
 Ce dossier contient les templates Twig utilisés pour afficher les pages HTML.
 
 - **`View/404.html.twig`**  
@@ -136,6 +138,68 @@ Ce dossier contient les templates Twig utilisés pour afficher les pages HTML.
 
 ---
 
+### 2. **Dossier `public/`**
+Ce dossier contient les fichiers accessibles publiquement, comme les assets (CSS, JS, images) et le point d'entrée principal de l'application.
+
+#### **Fichiers principaux**
+- **`public/index.php`**  
+  **Chemin** : `app/public/index.php`  
+  **Description** : Point d'entrée pour les requêtes HTTP. Redirige les requêtes vers le contrôleur approprié.
+
+#### **Dossier `banner/`**
+Contient les bannières utilisées dans l'application.
+
+- **`banner/1.png`, `banner/2.png`, ..., `banner/6.jpeg`**  
+  **Chemin** : `app/public/banner/`  
+  **Description** : Images des bannières disponibles pour les signatures.
+
+- **`banner/icon/`**  
+  **Chemin** : `app/public/banner/icon/`  
+  **Description** : Contient des icônes pour les réseaux sociaux (GitHub, LinkedIn, Twitter, etc.).
+
+#### **Dossier `img/`**
+Contient les images générales utilisées dans l'application.
+
+- **`img/background.jpg`**  
+  **Chemin** : `app/public/img/background.jpg`  
+  **Description** : Image d'arrière-plan utilisée dans certaines pages.
+
+- **`img/favicon-16x16.png`**  
+  **Chemin** : `app/public/img/favicon-16x16.png`  
+  **Description** : Favicon de l'application.
+
+- **`img/logo.png`**  
+  **Chemin** : `app/public/img/logo.png`  
+  **Description** : Logo principal de l'application.
+
+#### **Dossier `js/`**
+Contient les fichiers JavaScript.
+
+- **`.gitkeep`**  
+  **Chemin** : `app/public/js/.gitkeep`  
+  **Description** : Fichier vide pour conserver le dossier dans le contrôle de version.
+
+#### **Dossier `style/`**
+Contient les fichiers CSS pour le style de l'application.
+
+- **`style/header.css`**  
+  **Chemin** : `app/public/style/header.css`  
+  **Description** : Styles pour l'en-tête de l'application.
+
+- **`style/connect.css`**  
+  **Chemin** : `app/public/style/connect.css`  
+  **Description** : Styles pour les pages de connexion et d'inscription.
+
+- **`style/main.css`**  
+  **Chemin** : `app/public/style/main.css`  
+  **Description** : Styles principaux pour les pages de l'application.
+
+- **`style/views.css`**  
+  **Chemin** : `app/public/style/views.css`  
+  **Description** : Styles spécifiques pour les différentes vues de l'application.
+
+---
+
 ## Notes
-- Les chemins relatifs sont donnés par rapport au dossier `src/`.
+- Les chemins relatifs sont donnés par rapport à la racine du projet.
 - Ce document doit être mis à jour si de nouveaux fichiers sont ajoutés ou modifiés.
