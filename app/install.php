@@ -75,6 +75,8 @@ function createDatabase(Database $database)
     INSERT INTO test_db.entite(name, banniereRef, address, numStandard, couleur, link, linkX, linkYoutube, linkGitHub) VALUES("Geotrek", 4, "49 Gd Rue Saint-Michel\n31400 Toulouse", "0970332150","#b3ce0c", "geotrek.fr", "https://x.com/GeotrekCom", "https://x.com/GeotrekCom", "https://github.com/GeotrekCE");
 
     INSERT INTO test_db.users(id,login,password,name,firstName,poste,entite,isAdmin,isMarketing, numPro) VALUES(1,"adm","ac9689e2272427085e35b9d3e3e8bed88cb3434828b43b86fc0596cad4c6e270","Dudouet","Marius","Admin",1, true, true, "0123456789");
+    INSERT INTO test_db.users(id,login,password,name,firstName,poste,entite,isAdmin,isMarketing, numPro) VALUES(2,"mrk","17d04d021418fa643aafa7c8c3ff2228ac3c0a48ac49a63e14c161405172dc98","Agu","Nathan","Marketing",1, false, true, "0123456789");
+    INSERT INTO test_db.users(id,login,password,name,firstName,poste,entite,isAdmin,isMarketing, numPro) VALUES(3,"tdy","c7607fed529fe7a48fd67f7de7b13a970651299b4d7667a8bf36c5eef54f80e6","Galéa Raveau de Haute-Ville","Teddy","PenTester",1, false, false, "0123456789");
 
     SQL);
     echo "Données inserées avec succès\n";
